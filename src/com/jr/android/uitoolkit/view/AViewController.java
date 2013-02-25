@@ -1,12 +1,20 @@
 package com.jr.android.uitoolkit.view;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 
-import com.jr.android.uitoolkit.pres.IPresenter;
-
 public abstract class AViewController extends Activity {
-    private final Handler handler = new Handler(); 
+    private final Handler handler = new Handler();
+    private Transitioner transitioner; 
+
+    public AViewController() {
+        this.transitioner = new Transitioner(this);
+    }
 
     protected Handler getHandler() {
         return handler;
@@ -20,14 +28,11 @@ public abstract class AViewController extends Activity {
      * 
      * @param presenter
      */
-    public final void transitionTo(IPresenter presenter) {
-        transitionTo(presenter, false);
+    public final void transitionTo(Class<? extends AViewController> activityClass, Bundle args) {
+        this.transitioner.transitionTo(activityClass, args);
     }
 
-    public void transitionTo(IPresenter presenter, boolean finish) {
-        handler.post(presenter);
-        if (finish) {
-            finish();
-        }
+    public final void transitionToAndFinish(Class<? extends AViewController> activityClass, Bundle args) {
+        this.transitioner.transitionToAndFinish(activityClass, args);
     }
 }
