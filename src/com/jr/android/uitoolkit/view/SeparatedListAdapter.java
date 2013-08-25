@@ -1,6 +1,8 @@
 package com.jr.android.uitoolkit.view;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -15,7 +17,7 @@ import android.widget.BaseAdapter;
 import com.jr.android.uitoolkit.R;
 
 public class SeparatedListAdapter extends BaseAdapter {  
-    
+
     public final Map<String,Adapter> sections = new LinkedHashMap<String,Adapter>();  
     public final Map<Integer,Drawable> sectionBackgrounds = new LinkedHashMap<Integer, Drawable>();
     public final ArrayAdapter<String> headers;
@@ -33,7 +35,7 @@ public class SeparatedListAdapter extends BaseAdapter {
         addSection(section, null, adapter);
     }
 
-    public void addSection(String section, Drawable background, Adapter adapter) {  
+    public void addSection(String section, Drawable background, Adapter adapter) {
         int pos = this.headers.getCount();
         this.headers.add(section);
         if (background != null) {
